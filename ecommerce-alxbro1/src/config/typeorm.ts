@@ -17,16 +17,19 @@ export const AppDataSource = new DataSource({
   url: configService.get('DB_URL'),
   logging: true,
   synchronize: false,
-  dropSchema:false,
+  dropSchema: false,
   entities: [
     usersEntity,
     productsEntity,
     ordersDetailEntity,
     ordersEntity,
     categoryEntity,
-  
+
   ],
+  ssl: {
+    rejectUnauthorized: false,
+  },
   migrations: [join(__dirname, '../migrations/*{.ts,.js}')],
   migrationsTableName: 'custom_migration_table',
-  migrationsRun:true,
+  migrationsRun: true,
 });
