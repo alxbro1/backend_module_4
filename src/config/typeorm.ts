@@ -14,7 +14,11 @@ const configService = new ConfigService();
 console.log(process.env.DB_URL);
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  url: configService.get('DB_URL'),
+  host:configService.get('POSTGRES_HOST'),
+  database:configService.get('POSTGRES_DB'),
+  password: configService.get('POSTGRES_PASSWORD'),
+  port: configService.get('POSTGRES_PORT'),
+  username: configService.get('POSTGRES_USERNAME'),
   logging: true,
   synchronize: false,
   dropSchema: false,
@@ -24,11 +28,7 @@ export const AppDataSource = new DataSource({
     ordersDetailEntity,
     ordersEntity,
     categoryEntity,
-
   ],
-  ssl: {
-    rejectUnauthorized: false,
-  },
   migrations: [join(__dirname, '../migrations/*{.ts,.js}')],
   migrationsTableName: 'custom_migration_table',
   migrationsRun: true,
